@@ -57,10 +57,10 @@ class PlusDefence extends GarenSkill {
 class BigTerasureSword extends GarenSkill {
     public BigTerasureSword(TIMO timo) {
         this.setName("大宝剑！！");
-        this.setEffect("有30%几率直接秒杀掉敌方英雄");
+        this.setEffect("有50%几率直接秒杀掉敌方英雄");
         Random dead = new Random(System.currentTimeMillis());
         int num = dead.nextInt(10) + 1;
-        if (num <= 3)
+        if (num <= 5)
         timo.setHP(0);
     }
 }
@@ -76,7 +76,7 @@ class ReduceDefence extends TIMOSkill {
 class Mushroom extends TIMOSkill {
     public Mushroom(Garen garen) {
         this.setName("种蘑菇");
-        this.setEffect("对敌方英雄造成50%当前生命值的伤害");
-        garen.setHP((garen.getHP() / 2));
+        this.setEffect("对敌方英雄造成25%当前生命值的伤害");
+        garen.setHP((garen.getHP() * 3 / 4));
     }
 }
