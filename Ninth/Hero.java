@@ -1,16 +1,11 @@
-
-
-/**
- * @Author zhang
- * @Date 2017/11/9 15:28
- * @Content 英雄类（他是一个父类）
- */
 public class Hero {
 
     private String name;//英雄名字
     private int HP;//英雄血量
     private int attack;//英雄攻击力
     private int defence;//英雄防御力
+    private boolean blind;//英雄是否被致盲
+    private boolean silent;//英雄是否被沉默
 
     // -------------我们课上讲的封装 start----------
     public int getAttack() {
@@ -43,6 +38,22 @@ public class Hero {
 
     public void setDefence(int defence) {
         this.defence = defence;
+    }
+
+    public void setBlind(boolean blind) {
+        this.blind = blind;
+    }
+
+    public boolean isBlind() {
+        return blind;
+    }
+
+    public void setSilent(boolean silent) {
+        this.silent = silent;
+    }
+
+    public boolean isSilent() {
+        return silent;
     }
     //----------封装 end------------------------------
 
