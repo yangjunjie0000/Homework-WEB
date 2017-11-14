@@ -1,15 +1,8 @@
-
-
 import java.util.Random;
 
-/**
- * @Author zhang
- * @Date 2017/11/9 15:55
- * @Content 对战舞台类
- */
 public class Stage {
     //盖伦的武器名字
-    public String garenWeaponName[] = {"风暴之剑", "冰锤" , "海克斯手枪", "饮血剑"};
+    public String garenWeaponName[] = {"风暴之剑", "冰锤", "海克斯手枪", "饮血剑"};
     //盖伦的武器攻击力
     public int garenWeaponAttack[] = {30, 20, 24, 25};
 
@@ -57,7 +50,7 @@ public class Stage {
             //盖伦有三种状态 获取武器 攻击提莫 什么也不做
             GarenSkill garenSkill = new GarenSkill();
             Random garenAction = new Random(System.currentTimeMillis());
-            int num1 = garenAction.nextInt(5) + 1;
+            int num1 = garenAction.nextInt(6) + 1;
             switch (num1) {
                 case 1:
                     garen.attack(timo);
@@ -70,6 +63,9 @@ public class Stage {
                     break;
                 case 4:
                     garenSkill.CastBigTerasureSword(garen, timo);
+                    break;
+                case 5:
+                    garenSkill.CastSilence(garen, timo);
                     break;
                 default:
                     System.out.println(garen.getName() + "什么也没做");
@@ -84,11 +80,12 @@ public class Stage {
                 }
                 break;
             }
-
+            if (garen.isBlind())
+                garen.setBlind(false);
             //提莫也有三种状态 获取武器 攻击盖伦 嘲讽盖伦 什么也不做
             TIMOSkill timoSkill = new TIMOSkill();
             Random timoAction = new Random(System.currentTimeMillis());
-            int num2 = timoAction.nextInt(5) + 1;
+            int num2 = timoAction.nextInt(7) + 1;
             switch (num2) {
                 case 1:
                     timo.attack(garen);
@@ -99,15 +96,22 @@ public class Stage {
                 case 3:
                     timo.chaofeng();
                     break;
-                case 4:timoSkill.CastReduceDefence(garen,timo);break;
-                case 5:timoSkill.CastMushroom(garen,timo);break;
+                case 4:
+                    timoSkill.CastReduceDefence(garen, timo);
+                    break;
+                case 5:
+                    timoSkill.CastMushroom(garen, timo);
+                    break;
+                case 6:
+                    timoSkill.CastBlind(garen, timo);
+                    break;
                 default:
                     System.out.println(timo.getName() + "什么也没有做");
                     break;
             }
-
+            if (timo.isSilent())
+                timo.setSilent(false);
         }
-
     }
 
     public static void main(String[] args) {
