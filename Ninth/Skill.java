@@ -32,17 +32,39 @@ class GarenSkill extends Skill {
         BigTerasureSword skill = new BigTerasureSword(timo);
         System.out.println(garen.getName() + "使用了" + skill.getName() + "。效果是" + skill.getEffect());
     }
+
+    public void CastSilence(Garen garen, TIMO timo) {
+        Silence skill = new Silence(timo);
+        System.out.println(garen.getName() + "使用了" + skill.getName() + "。效果是" + skill.getEffect());
+    }
 }
 
 class TIMOSkill extends Skill {
     public void CastReduceDefence(Garen garen, TIMO timo) {
-        ReduceDefence skill = new ReduceDefence(garen);
-        System.out.println(timo.getName() + "使用了" + skill.getName() + "。效果是" + skill.getEffect());
+        if (timo.isSilent()) {
+            System.out.println(timo.getName() + "想要释放技能，可是被沉默啦！");
+        } else {
+            ReduceDefence skill = new ReduceDefence(garen);
+            System.out.println(timo.getName() + "使用了" + skill.getName() + "。效果是" + skill.getEffect());
+        }
     }
 
     public void CastMushroom(Garen garen, TIMO timo) {
-        Mushroom skill = new Mushroom(garen);
-        System.out.println(timo.getName() + "使用了" + skill.getName() + "。效果是" + skill.getEffect()+"。"+garen.getName()+"的生命值还剩"+garen.getHP());
+        if (timo.isSilent()) {
+            System.out.println(timo.getName() + "想要释放技能，可是被沉默啦！");
+        } else {
+            Mushroom skill = new Mushroom(garen);
+            System.out.println(timo.getName() + "使用了" + skill.getName() + "。效果是" + skill.getEffect() + "。" + garen.getName() + "的生命值还剩" + garen.getHP());
+        }
+    }
+
+    public void CastBlind(Garen garen, TIMO timo) {
+        if (timo.isSilent()) {
+            System.out.println(timo.getName() + "想要释放技能，可是被沉默啦！");
+        } else {
+            Blind skill = new Blind(garen);
+            System.out.println(timo.getName() + "使用了" + skill.getName() + "。效果是" + skill.getEffect());
+        }
     }
 }
 
@@ -56,12 +78,20 @@ class PlusDefence extends GarenSkill {
 
 class BigTerasureSword extends GarenSkill {
     public BigTerasureSword(TIMO timo) {
-        this.setName("大宝剑！！");
+        this.setName("大宝剑(作弊型)！！");
         this.setEffect("有50%几率直接秒杀掉敌方英雄");
         Random dead = new Random(System.currentTimeMillis());
         int num = dead.nextInt(10) + 1;
         if (num <= 5)
-        timo.setHP(0);
+            timo.setHP(0);
+    }
+}
+
+class Silence extends GarenSkill {
+    public Silence(TIMO timo) {
+        this.setName("沉默");
+        this.setEffect("使对方英雄本回合无法使用技能");
+        timo.setSilent(true);
     }
 }
 
@@ -78,5 +108,13 @@ class Mushroom extends TIMOSkill {
         this.setName("种蘑菇");
         this.setEffect("对敌方英雄造成25%当前生命值的伤害");
         garen.setHP((garen.getHP() * 3 / 4));
+    }
+}
+
+class Blind extends TIMOSkill {
+    public Blind(Garen garen) {
+        this.setName("致盲");
+        this.setEffect("本回合内的普通攻击落空");
+        garen.setBlind(true);
     }
 }
