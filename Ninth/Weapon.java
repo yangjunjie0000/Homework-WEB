@@ -1,4 +1,9 @@
 
+/**
+ * @Author zhang
+ * @Date 2017/11/9 15:52
+ * @Content 武器类
+ */
 public class Weapon {
     private String weaponName;
     private int weaponAttact;
