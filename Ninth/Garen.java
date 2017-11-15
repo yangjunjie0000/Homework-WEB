@@ -1,5 +1,10 @@
-public class Garen extends Hero {
 
+/**
+ * @Author zhang
+ * @Date 2017/11/9 15:55
+ * @Content 对战舞台类
+ */
+public class Garen extends Hero {
 
     public void attack(TIMO timo) {
         if (isBlind()) {
