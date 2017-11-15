@@ -1,3 +1,9 @@
+
+/**
+ * @Author zhang
+ * @Date 2017/11/9 15:55
+ * @Content 对战舞台类
+ */
 public class Hero {
 
     private String name;//英雄名字
@@ -67,6 +73,10 @@ public class Hero {
         setAttack(selfAttack);
         //把提升攻击力的这个过程打印出来
         System.out.println(this.getName() + "获得了" + weapon.getWeaponName() + "，攻击力提升了" + weapon.getWeaponAttact() + "此时攻击力为" + this.getAttack());
+    }
+
+    public void castSkill(Object hero){
+
     }
 }
 
