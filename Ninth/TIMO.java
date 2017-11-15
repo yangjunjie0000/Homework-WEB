@@ -1,3 +1,9 @@
+
+/**
+ * @Author zhang
+ * @Date 2017/11/9 15:55
+ * @Content 对战舞台类
+ */
 public class TIMO extends Hero {
 
 
@@ -31,3 +37,4 @@ public class TIMO extends Hero {
 
     //你可以为提莫添加其他有意思的方法 但是记得在调用的时候打印出来
 }
+
