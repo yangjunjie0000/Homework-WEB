@@ -1,5 +1,9 @@
-import java.util.Random;
 
+/**
+ * @Author zhang
+ * @Date 2017/11/9 15:55
+ * @Content 对战舞台类
+ */
 public class Stage {
     //盖伦的武器名字
     public String garenWeaponName[] = {"风暴之剑", "冰锤", "海克斯手枪", "饮血剑"};
@@ -32,45 +36,61 @@ public class Stage {
             //这是属于盖伦的武器
             Weapon garenWeapon = new Weapon();
             //java中的随机数类
-            Random garenRandom = new Random(System.currentTimeMillis());
-            //随机0-3的一个整数出来
-            int garenNumber = garenRandom.nextInt(4);
+            //随机一个0~10的浮点数出来
+            double garenNumber = Math.random();
             //给盖伦的武器设置名字和攻击力
-            garenWeapon.setWeaponAttact(garenWeaponAttack[garenNumber]);
-            garenWeapon.setWeaponName(garenWeaponName[garenNumber]);
+            if(garenNumber>0.8){
+                garenWeapon.setWeaponName(garenWeaponName[0]);
+                garenWeapon.setWeaponAttact(garenWeaponAttack[0]);
+            }
+            else if(garenNumber>0.5){
+                garenWeapon.setWeaponName(garenWeaponName[3]);
+                garenWeapon.setWeaponAttact(garenWeaponAttack[3]);
+            }
+            else if(garenNumber>0.2){
+                garenWeapon.setWeaponName(garenWeaponName[2]);
+                garenWeapon.setWeaponAttact(garenWeaponAttack[2]);
+            }
+            else{
+                garenWeapon.setWeaponName(garenWeaponName[1]);
+                garenWeapon.setWeaponAttact(garenWeaponAttack[1]);
+            }
+
 
             //实例化武器类 并且赋值给一个叫 timoWeapon的引用
             //这是属于提莫的武器
             Weapon timoWeapon = new Weapon();
-            Random timoRandon = new Random(System.currentTimeMillis());
-            int timoNumber = timoRandon.nextInt(4);
-            timoWeapon.setWeaponName(timoWeaponName[timoNumber]);
-            timoWeapon.setWeaponAttact(timoWeaponAttack[timoNumber]);
-
-            //盖伦有三种状态 获取武器 攻击提莫 什么也不做
-            GarenSkill garenSkill = new GarenSkill();
-            Random garenAction = new Random(System.currentTimeMillis());
-            int num1 = garenAction.nextInt(6) + 1;
-            switch (num1) {
-                case 1:
-                    garen.attack(timo);
-                    break;
-                case 2:
-                    garen.getWeapon(garenWeapon);
-                    break;
-                case 3:
-                    garenSkill.CastPlusDefence(garen);
-                    break;
-                case 4:
-                    garenSkill.CastBigTerasureSword(garen, timo);
-                    break;
-                case 5:
-                    garenSkill.CastSilence(garen, timo);
-                    break;
-                default:
-                    System.out.println(garen.getName() + "什么也没做");
-                    break;
+            double timoNumber = Math.random();
+            if(timoNumber>0.8){
+                timoWeapon.setWeaponName(timoWeaponName[0]);
+                timoWeapon.setWeaponAttact(timoWeaponAttack[0]);
             }
+            else if(timoNumber>0.6){
+                timoWeapon.setWeaponName(timoWeaponName[1]);
+                timoWeapon.setWeaponAttact(timoWeaponAttack[1]);
+            }
+            else if(timoNumber>0.3){
+                timoWeapon.setWeaponName(timoWeaponName[3]);
+                timoWeapon.setWeaponAttact(timoWeaponAttack[3]);
+            }
+            else{
+                timoWeapon.setWeaponName(timoWeaponName[2]);
+                timoWeapon.setWeaponAttact(timoWeaponAttack[2]);
+            }
+
+            Skill castSkill = null;
+            //盖伦有四种状态 获取武器 攻击提莫 使用技能 什么也不做
+            double garenAction =Math.random();
+            castSkill = new GarenSkill();
+            if(garenAction>0.6)
+                garen.attack(timo);
+            else if(garenAction>0.3)
+                garen.getWeapon(garenWeapon);
+            else if(garenAction>0.2)
+                castSkill.cast(garen,timo);
+            else
+                System.out.println(garen.getName() + "什么也没做");
+
             //如果有任何一个英雄血量<=0 游戏结束
             if (garen.getHP() <= 0 || timo.getHP() <= 0) {
                 if (garen.getHP() <= 0) {
@@ -82,33 +102,20 @@ public class Stage {
             }
             if (garen.isBlind())
                 garen.setBlind(false);
-            //提莫也有三种状态 获取武器 攻击盖伦 嘲讽盖伦 什么也不做
-            TIMOSkill timoSkill = new TIMOSkill();
-            Random timoAction = new Random(System.currentTimeMillis());
-            int num2 = timoAction.nextInt(7) + 1;
-            switch (num2) {
-                case 1:
-                    timo.attack(garen);
-                    break;
-                case 2:
-                    timo.getWeapon(timoWeapon);
-                    break;
-                case 3:
-                    timo.chaofeng();
-                    break;
-                case 4:
-                    timoSkill.CastReduceDefence(garen, timo);
-                    break;
-                case 5:
-                    timoSkill.CastMushroom(garen, timo);
-                    break;
-                case 6:
-                    timoSkill.CastBlind(garen, timo);
-                    break;
-                default:
-                    System.out.println(timo.getName() + "什么也没有做");
-                    break;
-            }
+            //提莫有五种状态 获取武器 攻击盖伦 嘲讽盖伦 释放技能 什么也不做
+            double timoAction =Math.random();
+            castSkill = new TIMOSkill();
+            if(timoAction>0.8)
+                castSkill.cast(garen, timo);
+            else if(timoAction>0.6)
+                timo.getWeapon(timoWeapon);
+            else if(timoAction>0.4)
+                timo.attack(garen);
+            else if(timoAction>0.1)
+                timo.chaofeng();
+            else
+                System.out.println(timo.getName() + "什么也没有做");
+
             if (timo.isSilent())
                 timo.setSilent(false);
         }
